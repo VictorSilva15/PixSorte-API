@@ -6,7 +6,7 @@ import { LogoutAdminUseCase } from "../application/useCases/Admin/logoutAdminUse
 // routes
 const adminRoutes = Router();
 
-// student controller
+// admin controller
 const adminController = new AdminController();
 
 // POST
@@ -22,7 +22,7 @@ adminRoutes.post("/", async (req, res) => {
 });
 
 
-// GET SPECIFIC USER
+// Logout from the system
 adminRoutes.get("/logout", async (req, res) => {
   const logout = new LogoutAdminUseCase(adminController);
 
