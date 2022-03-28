@@ -11,10 +11,12 @@ const adminController = new AdminController();
 
 // POST
 adminRoutes.post("/", async (req, res) => {
-  const createStudent = new CreateStudentUseCase(createStudentController);
+  const createStudent = new VerifyAdminUseCase(adminController);
+
+  const {email, password} = req.body;
 
   try {
-    const result = await createStudent.execute(req.body);
+    const result = await createStudent.execute(email, password);
     return res.json({result: result});
   } catch (error: any) {
     return res.json({error: error});

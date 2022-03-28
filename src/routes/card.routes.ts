@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { CardController } from "../application/useCases/Card/cardController";
-import { GenerateCardUseCase } from "../application/useCases/Card/generateCardUsecase";
-import { ReadCardUseCase } from "../application/useCases/Card/readCardUsecase";
-import { DeleteCardUseCase } from "../application/useCases/Card/deleteCardUsecase";
+import { GenerateCardUseCase } from "../application/useCases/Card/generateCardUseCase";
+import { ReadCardUseCase } from "../application/useCases/Card/readCardUseCase";
+import { DeleteCardUseCase } from "../application/useCases/Card/deleteCardUseCase";
 
 // routes
 const cardRoutes = Router();
@@ -15,7 +15,7 @@ cardRoutes.post("/", async (req, res) => {
   const generateCard = new GenerateCardUseCase(cardController);
 
   try {
-    const result = await createTeacher.execute(req.body);
+    const result = await generateCard.execute(req.body);
 
     return res.json({result: result})
   } catch (error: any) {
@@ -29,7 +29,7 @@ cardRoutes.get("/", async (_, res) => {
   const readCards = new ReadCardUseCase(cardController);
 
   try {
-    const result = await readTeacher.execute();
+    const result = await readCards.execute();
     return res.json({result: result})
   } catch (error: any) {
     return res.json({error: error})
@@ -43,7 +43,7 @@ cardRoutes.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const result = await deleteTeacher.execute(id);
+    const result = await deleteCard.execute(id);
     return res.json({result: result})
   } catch (error: any) {
     return res.json({error: error})

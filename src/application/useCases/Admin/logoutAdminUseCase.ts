@@ -5,7 +5,7 @@ export class LogoutAdminUseCase {
 
   // Will singout from the webapp
   async execute() {
-    const result = await this.courseRepository.logout();
+    const result = await this.adminRepository.logout();
 
     return result;
   }
