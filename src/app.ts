@@ -1,7 +1,6 @@
 import express from "express";
-import { courseRoutes } from "./routes/courses.routes";
-import { studentRoutes } from "./routes/students.routes";
-import { teacherRoutes } from "./routes/teachers.routes";
+import { adminRoutes } from "./routes/admin.routes";
+import { cardRoutes } from "./routes/card.routes";
 
 import cors from "cors";
 
@@ -21,8 +20,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-app.use("/students", studentRoutes);
-app.use("/teachers", teacherRoutes);
-app.use("/courses", courseRoutes);
+app.use("/admin", adminRoutes);
+app.use("/card", cardRoutes);
 
 export { app };
