@@ -36,7 +36,7 @@ cardRoutes.get("/", async (_, res) => {
   }
 });
 
-//DELETE TEACHER
+//DELETE CARD
 cardRoutes.delete("/:id", async (req, res) => {
   const deleteCard = new DeleteCardUseCase(cardController);
 
