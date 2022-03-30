@@ -4,8 +4,8 @@ export class ReadCardUseCase {
   constructor(private cardRepository: CardRepository) {}
 
   // Will read the card
-  async execute() {
-    const result = await this.cardRepository.read();
+  async execute(user_uuid: string) {
+    const result = await this.cardRepository.read(user_uuid);
 
     return result;
   }

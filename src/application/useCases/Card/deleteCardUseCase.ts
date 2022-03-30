@@ -4,8 +4,8 @@ export class DeleteCardUseCase {
   constructor(private cardRepository: CardRepository) {}
 
   // Will delete the card
-  async execute(id: string) {
-    const result = await this.cardRepository.delete(id);
+  async execute(card_id: string) {
+    const result = await this.cardRepository.delete(card_id);
 
     return result;
   }
