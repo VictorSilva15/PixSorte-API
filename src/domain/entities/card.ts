@@ -1,11 +1,15 @@
 import { Entity } from "../../core/domain/Entity";
 
 export type CardProps = {
-  id: string;
+  title: string;
+  number_of_cards: number;
   unit_price: number;
-  values_sorted: Array<number>;
-  client: string;
-  created_at: Date;
+  min: number;
+  max: number;
+  amount_random_number: number;
+  values_sorted?: Array<number[]>;
+  client_id: string;
+  date_sort: Date;
 };
 
 export class Card extends Entity<CardProps> {
@@ -18,6 +22,8 @@ export class Card extends Entity<CardProps> {
   static create(Props: CardProps) {
     const card = new Card(Props);
 
-    return card;
+    const result = { card_id: card.id, ...card.props };
+
+    return result;
   }
 }
