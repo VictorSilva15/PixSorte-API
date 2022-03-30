@@ -1,5 +1,5 @@
 {
-  "name": "PixSorte-API",
+  "name": "pixsorteapi",
   "version": "1.0.0",
   "main": "src/index.ts",
   "author": "Victor Silva <victor.silvaPC@hotmail.com>",
