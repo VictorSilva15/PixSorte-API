@@ -1,12 +1,11 @@
 import express from "express";
-import { adminRoutes } from "./routes/admin.routes";
 import { cardRoutes } from "./routes/card.routes";
 
 import cors from "cors";
 
 const app = express();
 
-app.use((req, res, next) => {
+app.use((_, res, next) => {
   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
   res.header("Access-Control-Allow-Origin", " * ");
   res.header(
@@ -20,7 +19,6 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-app.use("/admin", adminRoutes);
-app.use("/card", cardRoutes);
+app.use("/api/cards", cardRoutes);
 
 export { app };
