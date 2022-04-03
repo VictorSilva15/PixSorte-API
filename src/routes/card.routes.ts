@@ -2,8 +2,9 @@ import { Router } from "express";
 import { CardController } from "../application/useCases/Card/cardController";
 import { GenerateCardUseCase } from "../application/useCases/Card/generateCardUseCase";
 import { ReadCardUseCase } from "../application/useCases/Card/readCardUseCase";
+import { UpdateStatusCardUseCase } from "../application/useCases/Card/updateStatusCardUseCase";
 import { DeleteCardUseCase } from "../application/useCases/Card/deleteCardUseCase";
-import { generateValidation } from "../utils/validation";
+import { generateValidation, updateValidation } from "../utils/validation";
 // routes
 const cardRoutes = Router();
 
@@ -48,6 +49,28 @@ cardRoutes.get("/", async (req, res) => {
 
   try {
     const { data, error } = await readCards.execute(user_uuid || "");
+
+    if (error) return res.status(400).send(error);
+
+    return res.status(200).send(data);
+  } catch (error: any) {
+    return res.status(400).send(error.message);
+  }
+});
+
+// UPDATE Status Card
+cardRoutes.put("/update/:card_id", async (req, res) => {
+  const updateStatusCard = new UpdateStatusCardUseCase(cardController);
+
+  const { card_id } = req.params;
+
+  try {
+    await updateValidation(req.body);
+
+    const { data, error } = await updateStatusCard.execute(
+      card_id,
+      req.body.new_status
+    );
 
     if (error) return res.status(400).send(error);
 
