@@ -67,14 +67,30 @@ cardRoutes.put("/update/:card_id", async (req, res) => {
   try {
     await updateValidation(req.body);
 
-    const { data, error } = await updateStatusCard.execute(
-      card_id,
-      req.body.new_status
-    );
+    let updated_data, updated_error;
 
-    if (error) return res.status(400).send(error);
+    if (!req.body.value_sorted) {
+      const { data, error } = await updateStatusCard.execute(
+        card_id,
+        req.body.new_status
+      );
 
-    return res.status(200).send(data);
+      updated_data = data;
+      updated_error = error;
+    } else {
+      const { data, error } = await updateStatusCard.execute(
+        card_id,
+        req.body.new_status,
+        req.body.value_sorted
+      );
+
+      updated_data = data;
+      updated_error = error;
+    }
+
+    if (updated_error) return res.status(400).send(updated_error);
+
+    return res.status(200).send(updated_data);
   } catch (error: any) {
     return res.status(400).send(error.message);
   }
