@@ -18,4 +18,17 @@ const generateValidation = async (data: CardProps) => {
   await schema.validate(data);
 };
 
-export { generateValidation };
+// Update Validation
+type UpdateStatusCardRequestProps = {
+  new_status: string;
+};
+
+const updateValidation = async (data: UpdateStatusCardRequestProps) => {
+  const schema = yup.object().shape({
+    new_status: yup.string().min(3).required(),
+  });
+
+  await schema.validate(data);
+};
+
+export { generateValidation, updateValidation };
