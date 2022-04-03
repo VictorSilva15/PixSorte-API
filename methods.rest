@@ -5,19 +5,28 @@ Content-Type: application/json
 # 3577b388-47a3-4f13-891a-1bb43238bd74
 
 {
-    "title": "Johnny and Ryle's Card version 3.0",
-    "number_of_cards": 1000,
-    "unit_price": 10.00,
+    "title": "Card do Victor",
+    "number_of_cards": 5,
+    "unit_price": 5.00,
     "min": 0,
-    "max": 2000,
-    "amount_random_number": 2,
-    "client_id": "3577b388-47a3-4f13-891a-1bb43238bd74",
-    "date_sort": "02/28/2022"
+    "max": 5,
+    "amount_random_number": 1,
+    "client_id": "33a3d3f5-c5e5-4cee-a19c-072c64e15b0d",
+    "date_sort": "04/02/2022"
 }
 
 ###
 GET http://localhost:3333/api/cards/
 user-uuid: 33a3d3f5-c5e5-4cee-a19c-072c64e15b0d
+
+
+###
+PUT http://localhost:3333/api/cards/update/b6a1304d-d615-4260-965e-69dc8645d74c
+Content-Type:  application/json
+
+{
+    "new_status": "Sorteado"
+}
 
 ###
 DELETE http://localhost:3333/api/cards/delete/cd3dd7a5-2a94-4173-8313-0ea6f96a5f46
