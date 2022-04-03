@@ -21,11 +21,12 @@ user-uuid: 33a3d3f5-c5e5-4cee-a19c-072c64e15b0d
 
 
 ###
-PUT http://localhost:3333/api/cards/update/b6a1304d-d615-4260-965e-69dc8645d74c
+PUT http://localhost:3333/api/cards/update/ab64d3d6-0e4f-463d-8c7f-654e8f0eb4e3
 Content-Type:  application/json
 
 {
-    "new_status": "Sorteado"
+    "new_status": "Sorteado",
+    "value_sorted": 2878
 }
 
 ###
