@@ -26,6 +26,7 @@ type UpdateStatusCardRequestProps = {
 const updateValidation = async (data: UpdateStatusCardRequestProps) => {
   const schema = yup.object().shape({
     new_status: yup.string().min(3).required(),
+    value_sorted: yup.number(),
   });
 
   await schema.validate(data);
