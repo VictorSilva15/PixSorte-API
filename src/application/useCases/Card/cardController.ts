@@ -16,12 +16,8 @@ export class CardController implements CardRepository {
 
     card.values_sorted = randomCardsNumber;
 
-    console.log("cards completed: ", card);
-
     // Generate card here
     const result = await supabase.from("cards").insert([card]);
-
-    console.log(result);
 
     return result;
   }
@@ -33,6 +29,16 @@ export class CardController implements CardRepository {
       .from("cards")
       .select("*")
       .eq("client_id", user_uuid);
+
+    return result;
+  }
+
+  // Update Status Card
+  async update(card_id: string, new_status: string): Promise<any> {
+    const result = await supabase
+      .from("cards")
+      .update({ status: new_status })
+      .match({ card_id: card_id });
 
     return result;
   }
