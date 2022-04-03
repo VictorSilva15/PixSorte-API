@@ -34,7 +34,20 @@ export class CardController implements CardRepository {
   }
 
   // Update Status Card
-  async update(card_id: string, new_status: string): Promise<any> {
+  async update(
+    card_id: string,
+    new_status: string,
+    value_sorted?: number
+  ): Promise<any> {
+    if (value_sorted !== undefined) {
+      const result = await supabase
+        .from("cards")
+        .update({ status: new_status, sort_result: value_sorted })
+        .match({ card_id: card_id });
+
+      return result;
+    }
+
     const result = await supabase
       .from("cards")
       .update({ status: new_status })
