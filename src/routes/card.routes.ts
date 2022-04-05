@@ -4,7 +4,7 @@ import { GenerateCardUseCase } from "../application/useCases/Card/generateCardUs
 import { ReadCardUseCase } from "../application/useCases/Card/readCardUseCase";
 import { UpdateStatusCardUseCase } from "../application/useCases/Card/updateStatusCardUseCase";
 import { DeleteCardUseCase } from "../application/useCases/Card/deleteCardUseCase";
-import { generateValidation, updateValidation } from "../utils/validation";
+import { generateCardValidation, updateCardValidation } from "../utils/validation";
 // routes
 const cardRoutes = Router();
 
@@ -17,7 +17,7 @@ cardRoutes.post("/generate", async (req, res) => {
 
   try {
     // Validating the Data before proceduring with the logic code.
-    await generateValidation(req.body);
+    await generateCardValidation(req.body);
 
     // The number of cards * amount of random number must be less than the max - min result
     if (
@@ -65,7 +65,7 @@ cardRoutes.put("/update/:card_id", async (req, res) => {
   const { card_id } = req.params;
 
   try {
-    await updateValidation(req.body);
+    await updateCardValidation(req.body);
 
     let updated_data, updated_error;
 
