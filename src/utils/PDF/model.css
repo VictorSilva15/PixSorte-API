@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+li,
+ol {
+  list-style: none;
+}
+body {
+  background: #fff;
+  color: #131314;
+}
+
+button,
+input,
+body,
+textarea {
+  font-family: "Courier New", Courier, monospace;
+}
