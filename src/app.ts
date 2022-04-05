@@ -1,6 +1,6 @@
 import express from "express";
 import { cardRoutes } from "./routes/card.routes";
-
+import { userRoutes } from "./routes/user.routes";
 import cors from "cors";
 
 const app = express();
@@ -19,6 +19,7 @@ app.use((_, res, next) => {
 
 app.use(express.json());
 
+app.use("/api/users", userRoutes)
 app.use("/api/cards", cardRoutes);
 
 export { app };
