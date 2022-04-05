@@ -31,3 +31,27 @@ Content-Type:  application/json
 
 ###
 DELETE http://localhost:3333/api/cards/delete/cd3dd7a5-2a94-4173-8313-0ea6f96a5f46
+
+
+###
+
+# User Auth Methods
+
+POST http://localhost:3333/api/users/register
+Content-Type: application/json
+
+{
+    "user_name": "Victor Hugo da Silva",
+    "enterprise_name": "AX4B",
+    "email": "victor.silvaPC@hotmail.com",
+    "password": "admin123123"
+}
+
+###
+POST http://localhost:3333/api/users/login
+Content-Type: application/json
+
+{
+    "email": "victor.silvaPC@hotmail.com",
+    "password": "admin123123"
+}
