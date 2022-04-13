@@ -10,7 +10,7 @@ app.use((_, res, next) => {
   res.header("Access-Control-Allow-Origin", " * ");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Request-Width, Content-Type, Accept, user-uuid"
+    "Origin, X-Request-Width, Content-Type, Accept, user-uuid, Authorization"
   );
 
   app.use(cors());
@@ -19,7 +19,7 @@ app.use((_, res, next) => {
 
 app.use(express.json());
 
-app.use("/api/users", userRoutes)
+app.use("/api/users", userRoutes);
 app.use("/api/cards", cardRoutes);
 
 export { app };

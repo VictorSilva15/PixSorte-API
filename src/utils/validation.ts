@@ -10,7 +10,7 @@ const generateCardValidation = async (data: CardProps) => {
     number_of_cards: yup.number().min(1).required(),
     unit_price: yup.number().min(0.5).required(),
     min: yup.number().required(),
-    max: yup.number().min(1).required(),
+    max: yup.number().positive().min(1).required(),
     amount_random_number: yup.number().min(1).required(),
     client_id: yup.string().uuid().required(),
     date_sort: yup.date().required(),
@@ -33,16 +33,15 @@ const updateCardValidation = async (data: UpdateStatusCardRequestProps) => {
   await schema.validate(data);
 };
 
-
 // User Register Validation
 const userLoginValidation = async (data: UserProps) => {
   const schema = yup.object().shape({
     email: yup.string().email().required(),
     password: yup.string().min(6).max(100).required(),
-  })
+  });
 
   return schema.validate(data);
-}
+};
 
 // User Register Validation
 const userRegisterValidation = async (data: UserProps) => {
@@ -51,10 +50,15 @@ const userRegisterValidation = async (data: UserProps) => {
     enterprise_name: yup.string().min(3).max(250).required(),
     email: yup.string().email().required(),
     password: yup.string().min(6).max(100).required(),
-  })
+  });
 
   return schema.validate(data);
-}
+};
 
 // Exporting All validations
-export { generateCardValidation, updateCardValidation, userLoginValidation, userRegisterValidation };
+export {
+  generateCardValidation,
+  updateCardValidation,
+  userLoginValidation,
+  userRegisterValidation,
+};

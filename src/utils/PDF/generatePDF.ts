@@ -15,15 +15,14 @@ export async function generatePDF(card: CardProps) {
       if (err) {
         throw new Error(`Something wrong happend`);
       } else {
-        pdf
-          .create(html, {} /* options */)
-          .toFile(__dirname + "/card.pdf", (err, pdf) => {
-            if (err) {
-              throw new Error(`Impossible create the PDF`);
-            } else {
-              console.log(pdf);
-            }
-          });
+        pdf.create(html).toFile(__dirname + "/card.pdf", (err, pdf) => {
+          if (err) {
+            throw new Error(`Impossible create the PDF`);
+          } else {
+            console.log(pdf);
+          }
+        });
+        result = html;
       }
     });
 
