@@ -6,11 +6,11 @@ Content-Type: application/json
 
 {
     "title": "Card do Victor",
-    "number_of_cards": 5,
+    "number_of_cards": 10,
     "unit_price": 5.00,
-    "min": 0,
-    "max": 5,
-    "amount_random_number": 1,
+    "min": 1,
+    "max": 30,
+    "amount_random_number": 3,
     "client_id": "33a3d3f5-c5e5-4cee-a19c-072c64e15b0d",
     "date_sort": "04/02/2022"
 }
@@ -41,10 +41,10 @@ POST http://localhost:3333/api/users/register
 Content-Type: application/json
 
 {
-    "user_name": "Leonardo Farias",
-    "enterprise_name": "Farias",
-    "email": "leo.farias.05@gmail.com",
-    "password": "admin123"
+    "user_name": "Victor Hugo da Silva",
+    "enterprise_name": "AX4B",
+    "email": "victor720hugo@gmail.com",
+    "password": "admin123123"
 }
 
 ###
@@ -52,6 +52,18 @@ POST http://localhost:3333/api/users/login
 Content-Type: application/json
 
 {
-    "email": "leo.farias.05@gmail.com",
-    "password": "admin123"
+    "email": "victor720hugo@gmail.com",
+    "password": "admin123123"
 }
+
+###
+// GET ACTUAL SESSION 
+
+GET http://localhost:3333/api/users/me
+access_token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNjQ5ODYzMTkyLCJzdWIiOiIyODgyNzE2YS0zNjI4LTQ0YTktOWJiOC00ZjkzYzExZTliMTciLCJlbWFpbCI6InZpY3RvcjcyMGh1Z29AZ21haWwuY29tIiwicGhvbmUiOiIiLCJhcHBfbWV0YWRhdGEiOnsicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwidXNlcl9tZXRhZGF0YSI6eyJlbnRlcnByaXNlX25hbWUiOiJBWDRCIiwibmFtZSI6IlZpY3RvciBIdWdvIGRhIFNpbHZhIn0sInJvbGUiOiJhdXRoZW50aWNhdGVkIn0.UefC8Ty7GS4eClb4D_WM8Sp3FuqDzDjLUGEhYM_rtyU
+
+###
+# SINGOUT 
+
+GET http://localhost:3333/api/users/me/singout
+access_token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNjQ5ODQ4Mzc4LCJzdWIiOiI3ZjE1ZTIwOS0wMTEyLTQ3MjctOGU5MC1iNDBmY2Y0ODZlZWYiLCJlbWFpbCI6InZpY3Rvci5zaWx2YXBjQGhvdG1haWwuY29tIiwicGhvbmUiOiIiLCJhcHBfbWV0YWRhdGEiOnsicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwidXNlcl9tZXRhZGF0YSI6e30sInJvbGUiOiJhdXRoZW50aWNhdGVkIn0.9r7PC8goGUzXhc5JxAFDj6x2mhmyLDUxR_K2QYfDSK8

@@ -4,7 +4,10 @@ import { GenerateCardUseCase } from "../application/useCases/Card/generateCardUs
 import { ReadCardUseCase } from "../application/useCases/Card/readCardUseCase";
 import { UpdateStatusCardUseCase } from "../application/useCases/Card/updateStatusCardUseCase";
 import { DeleteCardUseCase } from "../application/useCases/Card/deleteCardUseCase";
-import { generateCardValidation, updateCardValidation } from "../utils/validation";
+import {
+  generateCardValidation,
+  updateCardValidation,
+} from "../utils/validation";
 // routes
 const cardRoutes = Router();
 
@@ -22,7 +25,7 @@ cardRoutes.post("/generate", async (req, res) => {
     // The number of cards * amount of random number must be less than the max - min result
     if (
       +req.body.amount_random_number * +req.body.number_of_cards >
-      +req.body.max - +req.body.min
+      +req.body.max - +req.body.min + 1
     ) {
       return res
         .status(400)

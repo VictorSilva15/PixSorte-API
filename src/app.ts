@@ -19,7 +19,7 @@ app.use((_, res, next) => {
 
 app.use(express.json());
 
-app.use("/api/users", userRoutes)
+app.use("/api/users", userRoutes);
 app.use("/api/cards", cardRoutes);
 
 export { app };

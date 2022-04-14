@@ -8,6 +8,7 @@ import { CardRepository } from "../../repositories/IcardRepository";
 import { supabase } from "../../../utils/connect_db";
 
 import { generateRandomCardsNumber } from "../../../utils/randomNumberGenerator";
+import { generatePDF } from "../../../utils/PDF/generatePDF";
 
 export class CardController implements CardRepository {
   // Save functionality
@@ -15,6 +16,10 @@ export class CardController implements CardRepository {
     const randomCardsNumber = generateRandomCardsNumber(card);
 
     card.values_sorted = randomCardsNumber;
+
+    const html = await generatePDF(card);
+
+    card.html = html;
 
     // Generate card here
     const result = await supabase.from("cards").insert([card]);
