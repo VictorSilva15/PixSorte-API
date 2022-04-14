@@ -41,10 +41,10 @@ POST http://localhost:3333/api/users/register
 Content-Type: application/json
 
 {
-    "user_name": "Victor Hugo da Silva",
-    "enterprise_name": "AX4B",
-    "email": "victor.silvaPC@hotmail.com",
-    "password": "admin123123"
+    "user_name": "Leonardo Farias",
+    "enterprise_name": "Farias",
+    "email": "leo.farias.05@gmail.com",
+    "password": "admin123"
 }
 
 ###
@@ -52,6 +52,6 @@ POST http://localhost:3333/api/users/login
 Content-Type: application/json
 
 {
-    "email": "victor.silvaPC@hotmail.com",
-    "password": "admin123123"
+    "email": "leo.farias.05@gmail.com",
+    "password": "admin123"
 }

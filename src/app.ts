@@ -10,7 +10,7 @@ app.use((_, res, next) => {
   res.header("Access-Control-Allow-Origin", " * ");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Request-Width, Content-Type, Accept, user-uuid"
+    "Origin, X-Request-Width, Content-Type, Accept, user-uuid, Authorization"
   );
 
   app.use(cors());
