@@ -2,6 +2,7 @@ import { Router } from "express";
 import { UserController } from "../application/useCases/User/userController";
 import { LoginUserUseCase } from "../application/useCases/User/loginUserUseCase";
 import { RegisterUserUseCase } from "../application/useCases/User/registerUserUseCase";
+import { RefreshTokenUseCase } from "../application/useCases/User/refreshTokenUseCase";
 import { SessionUseCase } from "../application/useCases/User/sessionUseCase";
 import {
   userRegisterValidation,
@@ -48,6 +49,8 @@ userRoutes.post("/register", async (req, res) => {
   }
 });
 
+// Get User Route
+
 userRoutes.get("/me", async (req, res) => {
   const sessionUserUseCase = new SessionUseCase(userController);
 
@@ -64,6 +67,8 @@ userRoutes.get("/me", async (req, res) => {
   }
 });
 
+// Singout User Route
+
 userRoutes.get("/me/singout", async (req, res) => {
   const singoutUseCase = new SignoutUseCase(userController);
 
@@ -74,6 +79,20 @@ userRoutes.get("/me/singout", async (req, res) => {
   if (error) return res.status(400).send(error?.message);
 
   return res.status(200).send("Logged Out successfully");
+});
+
+// Refresh Token Route
+
+userRoutes.get("/me/refresh", async (req, res) => {
+  const refreshToken = new RefreshTokenUseCase(userController);
+
+  let access_token = req.header("access_token") as string;
+
+  const { user, error } = await refreshToken.execute(access_token);
+
+  if (error) return res.status(400).send(error?.message);
+
+  return res.status(200).send(user);
 });
 
 export { userRoutes };

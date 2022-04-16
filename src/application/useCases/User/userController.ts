@@ -44,4 +44,10 @@ export class UserController implements UserRepository {
 
     return result;
   }
+
+  async refreshToken(access_token: string): Promise<any> {
+    const result = await supabase.auth.setAuth(access_token);
+
+    return result;
+  }
 }

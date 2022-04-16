@@ -8,7 +8,6 @@ export type CardProps = {
   max: number;
   amount_random_number: number;
   values_sorted?: Array<number[]>;
-  html?: string;
   client_id: string;
   date_sort: Date;
 };
