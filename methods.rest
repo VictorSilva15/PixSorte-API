@@ -9,8 +9,8 @@ Content-Type: application/json
     "number_of_cards": 10,
     "unit_price": 6.50,
     "min": 1,
-    "max": 10,
-    "amount_random_number": 1,
+    "max": 100,
+    "amount_random_number": 4,
     "client_id": "33a3d3f5-c5e5-4cee-a19c-072c64e15b0d",
     "date_sort": "12/12/2022"
 }

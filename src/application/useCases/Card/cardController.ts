@@ -8,6 +8,8 @@ import { CardRepository } from "../../repositories/IcardRepository";
 import { supabase } from "../../../utils/connect_db";
 
 import { generateRandomCardsNumber } from "../../../utils/randomNumberGenerator";
+import { pdfGenerator } from "../../../utils/pdf/generator";
+import { renderToString } from "@react-pdf/renderer";
 
 export class CardController implements CardRepository {
   // Save functionality
@@ -16,6 +18,11 @@ export class CardController implements CardRepository {
 
     card.values_sorted = randomCardsNumber;
 
+    const pdfString = await renderToString(pdfGenerator(card));
+
+    const encodedPdfString = Buffer.from(pdfString, "utf-8").toString("base64");
+
+    card.html = encodedPdfString;
     // Generate card here
     const result = await supabase.from("cards").insert([card]);
 
