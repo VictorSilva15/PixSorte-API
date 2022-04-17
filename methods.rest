@@ -43,8 +43,8 @@ Content-Type: application/json
 {
     "user_name": "Victor Hugo da Silva",
     "enterprise_name": "AX4B",
-    "email": "victor720hugo@gmail.com",
-    "password": "admin123123"
+    "email": "leo.farias.05@gmail.com",
+    "password": "123456"
 }
 
 ###
@@ -65,13 +65,4 @@ access_token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoZW50aWNhdGVkIi
 ###
 # SINGOUT 
 
-GET http://localhost:3333/api/users/me/singout
-access_token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNjQ5OTY2NTgyLCJzdWIiOiIyODgyNzE2YS0zNjI4LTQ0YTktOWJiOC00ZjkzYzExZTliMTciLCJlbWFpbCI6InZpY3RvcjcyMGh1Z29AZ21haWwuY29tIiwicGhvbmUiOiIiLCJhcHBfbWV0YWRhdGEiOnsicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwidXNlcl9tZXRhZGF0YSI6eyJlbnRlcnByaXNlX25hbWUiOiJBWDRCIiwibmFtZSI6IlZpY3RvciBIdWdvIGRhIFNpbHZhIn0sInJvbGUiOiJhdXRoZW50aWNhdGVkIn0.Rv3vg4s9Ny8Pf0aSxjp5ul1f5OAABI1f8_iz2xcIhbw
 
-
-###
-
-#Refresh Token
-
-GET http://localhost:3333/api/users/me/refresh
-access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNjQ5OTY2NzIyLCJzdWIiOiIyODgyNzE2YS0zNjI4LTQ0YTktOWJiOC00ZjkzYzExZTliMTciLCJlbWFpbCI6InZpY3RvcjcyMGh1Z29AZ21haWwuY29tIiwicGhvbmUiOiIiLCJhcHBfbWV0YWRhdGEiOnsicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwidXNlcl9tZXRhZGF0YSI6eyJlbnRlcnByaXNlX25hbWUiOiJBWDRCIiwibmFtZSI6IlZpY3RvciBIdWdvIGRhIFNpbHZhIn0sInJvbGUiOiJhdXRoZW50aWNhdGVkIn0.z4UTCnYUtb8QCxjVGjfJrm-kyKrHavqJ6-VYoCJnW_g
