@@ -8,7 +8,7 @@ export type CardProps = {
   max: number;
   amount_random_number: number;
   values_sorted?: Array<number[]>;
-  html?: string;
+  html: string | { error: any } | undefined;
   client_id: string;
   date_sort: Date;
 };

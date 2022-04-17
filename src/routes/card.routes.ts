@@ -36,11 +36,11 @@ cardRoutes.post("/generate", async (req, res) => {
 
     const { data, error } = await generateCard.execute(req.body);
 
-    if (error) return res.status(400).send(error);
+    if (error) return res.status(400).send(error?.message);
 
     return res.status(200).send(data);
   } catch (error: any) {
-    return res.status(400).send(error.message);
+    return res.status(400).send(error?.message);
   }
 });
 
