@@ -5,7 +5,7 @@ import { CardProps } from "../../../domain/entities/card";
 import { CardRepository } from "../../repositories/IcardRepository";
 
 // Supabase client
-import { supabase } from "../../../utils/connect_db";
+import { supabase } from "../../../utils/config";
 
 import { generateRandomCardsNumber } from "../../../utils/randomNumberGenerator";
 import { pdfGenerator } from "../../../utils/pdf/generator";

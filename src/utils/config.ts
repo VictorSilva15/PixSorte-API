@@ -7,4 +7,8 @@ const KEY = process.env.SUPABASE_SERVICE_KEY as string;
 
 const supabase = createClient(URL, KEY);
 
+export const auth = {
+  secret: process.env.JWT_SUPER_SECRET as string,
+} as const;
+
 export { supabase };

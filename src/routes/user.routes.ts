@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { NextFunction, Request, Response, Router } from "express";
 import { UserController } from "../application/useCases/User/userController";
 import { LoginUserUseCase } from "../application/useCases/User/loginUserUseCase";
 import { RegisterUserUseCase } from "../application/useCases/User/registerUserUseCase";
@@ -8,11 +8,96 @@ import {
   userRegisterValidation,
   userLoginValidation,
 } from "../utils/validation";
-import { SignoutUseCase } from "../application/useCases/User/singoutUseCase";
+import { generateJwtAndRefreshToken } from "../utils/auth";
+import jwt from "jsonwebtoken";
+import { auth } from "../utils/config";
+import { DecodedToken } from "../types/tokens";
+import decode from "jwt-decode";
+import { UserProps } from "../domain/entities/user";
 
 const userController = new UserController();
 
 const userRoutes = Router();
+
+// MiddleWares
+
+function checkAuthMiddleware(
+  request: Request,
+  response: Response,
+  next: NextFunction
+) {
+  const { authorization } = request.headers;
+
+  if (!authorization) {
+    return response.status(401).json({
+      error: true,
+      code: "token.invalid",
+      message: "Token not present.",
+    });
+  }
+
+  const [, token] = authorization?.split(" ");
+
+  if (!token) {
+    return response.status(401).json({
+      error: true,
+      code: "token.invalid",
+      message: "Token not present.",
+    });
+  }
+
+  try {
+    const decoded = jwt.verify(token as string, auth.secret) as DecodedToken;
+
+    request.user = decoded.sub;
+
+    return next();
+  } catch (err) {
+    return response
+      .status(401)
+      .json({ error: true, code: "token.expired", message: "Token invalid." });
+  }
+}
+
+function addUserInformationToRequest(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+    return res.status(401).json({
+      error: true,
+      code: "token.invalid",
+      message: "Token not present.",
+    });
+  }
+
+  const [, token] = authorization?.split(" ");
+
+  if (!token) {
+    return res.status(401).json({
+      error: true,
+      code: "token.invalid",
+      message: "Token not present.",
+    });
+  }
+
+  try {
+    const decoded = decode(token as string) as DecodedToken;
+
+    req.user = decoded.sub;
+
+    return next();
+  } catch (err) {
+    return res.status(401).json({
+      error: true,
+      code: "token.invalid",
+      message: "Invalid token format.",
+    });
+  }
+}
 
 // Login Route
 userRoutes.post("/login", async (req, res) => {
@@ -21,11 +106,34 @@ userRoutes.post("/login", async (req, res) => {
   try {
     await userLoginValidation(req.body);
 
-    const result = await loginUserUseCase.execute(req.body);
+    const user = await loginUserUseCase.execute(req.body);
 
-    if (result.error) return res.status(400).send(result.error?.message);
+    if (
+      user.data[0].length === 0 ||
+      req.body.password !== user.data[0].password
+    ) {
+      return res.status(401).json({
+        error: true,
+        message: "E-mail or password incorrect.",
+      });
+    }
 
-    return res.status(200).send(result.data);
+    const { token, refreshToken } = generateJwtAndRefreshToken(
+      user.data[0].email,
+      {
+        permissions: user.data[0].permissions,
+        roles: user.data[0].roles,
+      }
+    );
+
+    console.log(token, refreshToken);
+
+    return res.json({
+      token,
+      refreshToken,
+      permissions: user.data[0].permissions,
+      roles: user.data[0].roles,
+    });
   } catch (error: any) {
     return res.status(400).send(error?.message);
   }
@@ -51,48 +159,73 @@ userRoutes.post("/register", async (req, res) => {
 
 // Get User Route
 
-userRoutes.get("/me", async (req, res) => {
+userRoutes.get("/me", checkAuthMiddleware, async (req, res) => {
   const sessionUserUseCase = new SessionUseCase(userController);
 
-  let access_token = req.header("access_token") as string;
+  const email = req.user;
 
-  try {
-    const { data, error } = await sessionUserUseCase.execute(access_token);
+  const user = await sessionUserUseCase.execute(email);
 
-    if (error) return res.status(400).send(error?.message);
-
-    return res.status(200).send(data);
-  } catch (error: any) {
-    return res.status(400).send(error?.message);
+  if (!user) {
+    return res.status(400).json({ error: true, message: "User not found." });
   }
-});
 
-// Singout User Route
-
-userRoutes.get("/me/singout", async (req, res) => {
-  const singoutUseCase = new SignoutUseCase(userController);
-
-  let access_token = req.header("access_token") as string;
-
-  const { error } = await singoutUseCase.execute(access_token);
-
-  if (error) return res.status(400).send(error?.message);
-
-  return res.status(200).send("Logged Out successfully");
+  return res.json({
+    email,
+    permissions: user.data[0].permissions,
+    roles: user.data[0].roles,
+  });
 });
 
 // Refresh Token Route
 
-userRoutes.get("/me/refresh", async (req, res) => {
-  const refreshToken = new RefreshTokenUseCase(userController);
+userRoutes.post("/refresh", addUserInformationToRequest, async (req, res) => {
+  const sessionUserUseCase = new RefreshTokenUseCase(userController);
+  const email = req.user;
+  const { refreshToken } = req.body;
 
-  let access_token = req.header("access_token") as string;
+  const user = await sessionUserUseCase.execute(email);
 
-  const { user, error } = await refreshToken.execute(access_token);
+  if (!user) {
+    return res.status(401).json({
+      error: true,
+      message: "User not found.",
+    });
+  }
 
-  if (error) return res.status(400).send(error?.message);
+  if (!refreshToken) {
+    return res
+      .status(401)
+      .json({ error: true, message: "Refresh token is required." });
+  }
 
-  return res.status(200).send(user);
+  const isValidRefreshToken = await userController.checkRefreshTokenIsValid(
+    email,
+    refreshToken
+  );
+
+  if (!isValidRefreshToken) {
+    return res
+      .status(401)
+      .json({ error: true, message: "Refresh token is invalid." });
+  }
+
+  await userController.invalidateRefreshToken(email, refreshToken);
+
+  const { token, refreshToken: newRefreshToken } = generateJwtAndRefreshToken(
+    email,
+    {
+      permissions: user.permissions,
+      roles: user.roles,
+    }
+  );
+
+  return res.json({
+    token,
+    refreshToken: newRefreshToken,
+    permissions: user.permissions,
+    roles: user.roles,
+  });
 });
 
 export { userRoutes };
