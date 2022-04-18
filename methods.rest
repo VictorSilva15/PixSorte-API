@@ -43,7 +43,7 @@ Content-Type: application/json
 {
     "user_name": "Victor Hugo da Silva",
     "enterprise_name": "AX4B",
-    "email": "victor720hugo@gmail.com",
+    "email": "victor.hugoPC@hotmail.com",
     "password": "admin123123",
     "permissions": ["all"],
     "roles":["admin"]
