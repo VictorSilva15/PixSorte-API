@@ -126,8 +126,6 @@ userRoutes.post("/login", async (req, res) => {
       }
     );
 
-    console.log(token, refreshToken);
-
     return res.json({
       token,
       refreshToken,
