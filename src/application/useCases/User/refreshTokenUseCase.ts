@@ -5,8 +5,6 @@ export class RefreshTokenUseCase {
 
   async execute(access_token: string) {
     const result = await this.userRepository.refreshToken(access_token);
-
-    console.log(result);
     return result;
   }
 }

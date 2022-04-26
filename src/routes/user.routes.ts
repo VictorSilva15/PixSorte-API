@@ -131,6 +131,7 @@ userRoutes.post("/login", async (req, res) => {
       refreshToken,
       permissions: user.data[0].permissions,
       roles: user.data[0].roles,
+      userUuid: user.data[0].id,
     });
   } catch (error: any) {
     return res.status(400).send(error?.message);

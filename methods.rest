@@ -41,11 +41,10 @@ POST http://localhost:3333/api/users/register
 Content-Type: application/json
 
 {
-    "user_name": "Victor Hugo da Silva",
-    "enterprise_name": "AX4B",
-    "email": "victor.hugoPC@hotmail.com",
-    "password": "admin123123",
-    "permissions": ["all"],
+    "user_name": "Leo Farias",
+    "enterprise_name": "Google",
+    "email": "leozin.farias@gmail.com",
+    "password": "123123admin",
     "roles":["admin"]
 }
 
