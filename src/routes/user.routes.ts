@@ -132,6 +132,8 @@ userRoutes.post("/login", async (req, res) => {
       permissions: user.data[0].permissions,
       roles: user.data[0].roles,
       userUuid: user.data[0].id,
+      userName: user.data[0].metadata.user_name,
+      enterpriseName: user.data[0].metadata.enterprise_name,
     });
   } catch (error: any) {
     return res.status(400).send(error?.message);
@@ -173,6 +175,8 @@ userRoutes.get("/me", checkAuthMiddleware, async (req, res) => {
     email,
     permissions: user.data[0].permissions,
     roles: user.data[0].roles,
+    userName: user.data[0].metadata.user_name,
+    enterpriseName: user.data[0].metadata.enterprise_name,
   });
 });
 

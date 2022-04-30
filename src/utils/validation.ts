@@ -7,11 +7,11 @@ import { UserProps } from "../domain/entities/user";
 const generateCardValidation = async (data: CardProps) => {
   const schema = yup.object().shape({
     title: yup.string().min(3).required(),
-    number_of_cards: yup.number().min(1).required(),
+    number_of_cards: yup.number().min(1).max(300).required(),
     unit_price: yup.number().min(0.5).required(),
-    min: yup.number().required(),
+    min: yup.number().required().required(),
     max: yup.number().positive().min(1).required(),
-    amount_random_number: yup.number().min(1).required(),
+    amount_random_number: yup.number().min(1).max(4).required(),
     client_id: yup.string().uuid().required(),
     date_sort: yup.date().required(),
   });
@@ -36,7 +36,7 @@ const updateCardValidation = async (data: UpdateStatusCardRequestProps) => {
 // User Register Validation
 const userLoginValidation = async (data: UserProps) => {
   const schema = yup.object().shape({
-    email: yup.string().email().required(),
+    email: yup.string().email().max(250).required(),
     password: yup.string().min(6).max(100).required(),
   });
 
@@ -48,9 +48,9 @@ const userRegisterValidation = async (data: UserProps) => {
   const schema = yup.object().shape({
     user_name: yup.string().min(3).max(250).required(),
     enterprise_name: yup.string().min(3).max(250).required(),
-    email: yup.string().email().required(),
+    email: yup.string().email().max(250).required(),
     password: yup.string().min(6).max(100).required(),
-    permissions: yup.array(),
+    permissions: yup.array().required(),
     roles: yup.array().required(),
   });
 

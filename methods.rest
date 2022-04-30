@@ -33,7 +33,7 @@ Content-Type:  application/json
 DELETE http://localhost:3333/api/cards/delete/cd3dd7a5-2a94-4173-8313-0ea6f96a5f46
 
 
-###
+### 
 
 # User Auth Methods
 

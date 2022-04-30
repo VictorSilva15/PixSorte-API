@@ -32,7 +32,7 @@ export class UserController implements UserRepository {
       email: props.email,
       password: props.password,
       metadata: {
-        "user_name:": props.user_name,
+        user_name: props.user_name,
         enterprise_name: props.enterprise_name,
       },
       permissions: props.permissions,
