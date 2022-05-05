@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { auth } from "./config";
 import { UserController } from "../application/useCases/User/userController";
 
-export function generateJwtAndRefreshToken(
+export async function generateJwtAndRefreshToken(
   email: string,
   payload: object = {}
 ) {
@@ -12,7 +12,7 @@ export function generateJwtAndRefreshToken(
     expiresIn: "1h", // 1 hora
   });
 
-  const refreshToken = new UserController().createRefreshToken(email);
+  const refreshToken = await new UserController().createRefreshToken(email);
   return {
     token,
     refreshToken,

@@ -13,7 +13,6 @@ import jwt from "jsonwebtoken";
 import { auth } from "../utils/config";
 import { DecodedToken } from "../types/tokens";
 import decode from "jwt-decode";
-import { UserProps } from "../domain/entities/user";
 
 const userController = new UserController();
 
@@ -118,7 +117,7 @@ userRoutes.post("/login", async (req, res) => {
       });
     }
 
-    const { token, refreshToken } = generateJwtAndRefreshToken(
+    const { token, refreshToken } = await generateJwtAndRefreshToken(
       user.data[0].email,
       {
         permissions: user.data[0].permissions,
@@ -215,13 +214,11 @@ userRoutes.post("/refresh", addUserInformationToRequest, async (req, res) => {
 
   await userController.invalidateRefreshToken(email, refreshToken);
 
-  const { token, refreshToken: newRefreshToken } = generateJwtAndRefreshToken(
-    email,
-    {
+  const { token, refreshToken: newRefreshToken } =
+    await generateJwtAndRefreshToken(email, {
       permissions: user.permissions,
       roles: user.roles,
-    }
-  );
+    });
 
   return res.json({
     token,

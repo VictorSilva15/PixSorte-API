@@ -11,13 +11,13 @@ Content-Type: application/json
     "min": 1,
     "max": 100,
     "amount_random_number": 4,
-    "client_id": "33a3d3f5-c5e5-4cee-a19c-072c64e15b0d",
+    "client_id": "bfd41476-dfb5-45de-93ac-6f3eb85d9be3",
     "date_sort": "12/12/2022"
 }
 
 ###
 GET http://localhost:3333/api/cards/
-user-uuid: 33a3d3f5-c5e5-4cee-a19c-072c64e15b0d
+user-uuid: bfd41476-dfb5-45de-93ac-6f3eb85d9be3
 
 
 ###
@@ -41,11 +41,12 @@ POST http://localhost:3333/api/users/register
 Content-Type: application/json
 
 {
-    "user_name": "Leo Farias",
-    "enterprise_name": "Google",
-    "email": "leozin.farias@gmail.com",
-    "password": "123123admin",
-    "roles":["admin"]
+    "user_name": "Mayk Brito",
+    "enterprise_name": "Rocketseat",
+    "email": "mayk.brito@rocketseat.com",
+    "password": "Maykao007",
+    "roles":["creator"],
+    "permissions": ["card.create", "caard.read"]
 }
 
 ###
@@ -53,6 +54,6 @@ POST http://localhost:3333/api/users/login
 Content-Type: application/json
 
 {
-    "email": "victor720hugo@gmail.com",
-    "password": "admin123123"
+    "email": "mayk.brito@rocketseat.com",
+    "password": "Maykao007"
 }

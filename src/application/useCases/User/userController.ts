@@ -59,15 +59,16 @@ export class UserController implements UserRepository {
   }
 
   async createRefreshToken(email: string): Promise<string> {
-    const currentUserTokens = await supabase
+    const currentUserTokens: any = await supabase
       .from("users")
       .select("tokens")
       .match({ email });
-    const data = currentUserTokens.data ?? [];
+
+    const data = currentUserTokens?.data[0]?.tokens ?? [];
     const refreshToken = uuid();
 
     const newTokens = [...data, refreshToken];
-    supabase.from("users").update({ tokens: newTokens }).match({ email });
+    await supabase.from("users").update({ tokens: newTokens }).match({ email });
     return refreshToken;
   }
 
@@ -75,25 +76,25 @@ export class UserController implements UserRepository {
     email: string,
     refreshToken: string
   ): Promise<boolean> {
-    const storedRefreshTokens = await supabase
+    const storedRefreshTokens: any = await supabase
       .from("users")
       .select("tokens")
       .match({ email });
-    const data = storedRefreshTokens.data ?? [];
-    return data.some((token: string) => token === refreshToken);
+    const data = storedRefreshTokens.data[0].tokens ?? [];
+    return data?.some((token: string) => token === refreshToken);
   }
 
   async invalidateRefreshToken(
     email: string,
     refreshToken: string
   ): Promise<void> {
-    const storedRefreshTokens = await supabase
+    const storedRefreshTokens: any = await supabase
       .from("users")
       .select("tokens")
       .match({ email });
-    const data = storedRefreshTokens.data ?? [];
+    const data = storedRefreshTokens.data[0].tokens ?? [];
 
-    const newTokens = data.filter((token) => token !== refreshToken);
-    supabase.from("users").update({ tokens: newTokens }).match({ email });
+    const newTokens = data?.filter((token: string) => token !== refreshToken);
+    await supabase.from("users").update({ tokens: newTokens }).match({ email });
   }
 }
