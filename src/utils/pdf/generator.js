@@ -1,12 +1,12 @@
-import React from "react";
-import {
+const React = require("react");
+const {
   Document,
   Page,
   Text,
   View,
   StyleSheet,
   Font,
-} from "@react-pdf/renderer";
+} = require("@react-pdf/renderer");
 
 Font.register({
   family: "Roboto",
@@ -14,7 +14,24 @@ Font.register({
 });
 
 // Create Document Component
-export function pdfGenerator(card) {
+function pdfGenerator(card) {
+  let unity = "";
+
+  switch (card.unit_price.toString().length) {
+    case 1:
+      unity = "unidade";
+      break;
+    case 2:
+      unity = "dezena";
+      break;
+    case 3:
+      unity = "centena";
+      break;
+    default:
+      unity = "milhar";
+      break;
+  }
+
   // Create styles
   const styles = StyleSheet.create({
     page: {
@@ -106,12 +123,15 @@ export function pdfGenerator(card) {
     },
     description: {
       width: "100%",
-      fontSize: "8pt",
+      fontSize: "9pt",
       flex: 1,
+      margin: "8pt",
     },
     explanation: {
       flex: 1,
       fontSize: "6pt",
+      margin: " 0 4pt",
+      textAlign: "justify",
     },
     date: {
       backgroundColor: "#FFF",
@@ -190,12 +210,12 @@ export function pdfGenerator(card) {
                 </Text>
                 <View style={styles.flexbox}>
                   <Text style={styles.price}>
-                    R${card.unit_price.toFixed(2)}
+                    R$ {card.unit_price.toFixed(2)}
                   </Text>
                   <Text style={styles.explanation}>
                     O jogador paga R$ 2.50 e recebe um bilhete com 4 milhares.
-                    Caso alguma milhar seja sorteada o jogador recebe R$ 600,00.
-                    Podendo acumular chegando até R$ 10.000,00
+                    Caso algum(a) {unity} seja sorteado(a) o jogador recebe R$
+                    600,00. Podendo acumular chegando até R$ 10.000,00
                   </Text>
                 </View>
               </View>
@@ -217,3 +237,5 @@ export function pdfGenerator(card) {
     </Document>
   );
 }
+
+module.exports = { pdfGenerator };
